@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">GamerWatch</string>
-    <string name="addToWishlist">Add to wishlist</string>
+    <string name="addToWishlist">Add game to wishlist</string>
     <string name="placeholder">Game title goes here!</string>
+    <string name="pc">PC</string>
+    <string name="ps4">PS4</string>
+    <string name="xbox1">XBONE</string>
 </resources>
