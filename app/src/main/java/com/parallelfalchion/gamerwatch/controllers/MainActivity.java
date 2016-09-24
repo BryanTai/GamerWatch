@@ -2,6 +2,11 @@ package com.parallelfalchion.gamerwatch.controllers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +23,8 @@ import com.parallelfalchion.gamerwatch.models.Platform;
 
 public class MainActivity extends AppCompatActivity {
 
+    ListView featuredGames;
+
     private static final String GAME_CHILD = "game";
     private DatabaseReference mFirebaseDatabaseReference;
 
@@ -27,6 +34,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(myToolbar);
+
+        populateFeaturedGames();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.overflow_menu, menu);
+        return true;
+    }
+
+    private void populateFeaturedGames() {
+        featuredGames = (ListView) findViewById(R.id.featuredList);
 
         mFirebaseDatabaseReference.child(GAME_CHILD).addChildEventListener(new ChildEventListener() {
             @Override

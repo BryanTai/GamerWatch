@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -41,7 +42,7 @@ import java.util.UUID;
  * Created by Bryan on 9/24/2016.
  */
 
-public class SingleGameActivity extends Activity {
+public class SingleGameActivity extends AppCompatActivity {
 
     //TODO need to pass in the selected Game somehow
     Game game;
