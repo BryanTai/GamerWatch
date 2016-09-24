@@ -5,4 +5,5 @@
     <string name="pc">PC</string>
     <string name="ps4">PS4</string>
     <string name="xbox1">XBONE</string>
+    <string name="featured_games">Featured games</string>
 </resources>
