@@ -9,11 +9,11 @@
     android:layout_height="match_parent">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingBottom="16dp"
         android:id="@+id/gameTitleLayout">
 
         <ImageView
@@ -40,25 +40,25 @@
 
     </LinearLayout>
 
-
     <Button
         android:text="@string/addToWishlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addToWishlist"
-        android:layout_marginBottom="104dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/gameTitleLayout"
+        android:id="@+id/addToWishlist" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gameTitleLayout"
+        android:layout_below="@+id/addToWishlist"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="27dp">
-            <RadioButton
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/platformGroup">
+
+        <RadioButton
                 android:text="@string/pc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,6 +78,24 @@
                 android:layout_weight="1" />
 
         </RadioGroup>
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/platformGroup">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vendorList" />
+
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>
