@@ -1,4 +1,4 @@
-package com.parallelfalchion.gamerwatch;
+package com.parallelfalchion.gamerwatch.controllers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Map;
 import java.util.UUID;
 
+import com.parallelfalchion.gamerwatch.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String GAME_CHILD = "game";
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.landing_page.xml);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         mFirebaseDatabaseReference.child(GAME_CHILD).addChildEventListener(new ChildEventListener() {
@@ -72,7 +74,4 @@ public class MainActivity extends AppCompatActivity {
         Game counterStrike = new Game("Counter Strike: Global Offensive", 10, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.PC);
         mFirebaseDatabaseReference.child(GAME_CHILD).child(overwatchID.toString()).setValue(overwatch);
     }
-
-
-
 }

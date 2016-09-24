@@ -1,4 +1,4 @@
-package com.parallelfalchion.gamerwatch;
+package com.parallelfalchion.gamerwatch.models;
 
 
 import java.io.File;
