@@ -1,4 +1,4 @@
-package com.brytai.gamerwatch;
+package com.parallelfalchion.gamerwatch;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.brytai.gamerwatch", appContext.getPackageName());
+        assertEquals("com.parallelfalchion.gamerwatch", appContext.getPackageName());
     }
 }

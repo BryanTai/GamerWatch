@@ -1,4 +1,4 @@
-package com.brytai.gamerwatch;
+package com.parallelfalchion.gamerwatch;
 
 import org.junit.Test;
 

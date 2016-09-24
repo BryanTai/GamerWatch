@@ -1,4 +1,4 @@
-package com.brytai.gamerwatch;
+package com.parallelfalchion.gamerwatch;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
