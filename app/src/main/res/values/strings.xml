@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GamerWatch</string>
+    <string name="addToWishlist">Add to wishlist</string>
+    <string name="placeholder">Game title goes here!</string>
 </resources>
