@@ -1,5 +1,5 @@
 package com.parallelfalchion.gamerwatch.models;
 
 public enum Platform {
-    PS4, XBOXONE, PC
+    PS4, XBOXONE, PC, THREEDS
 }

@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.parallelfalchion.gamerwatch.R;
+import com.parallelfalchion.gamerwatch.models.Game;
+import com.parallelfalchion.gamerwatch.models.Platform;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.landing_page.xml);
+        setContentView(R.layout.landing_page);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         mFirebaseDatabaseReference.child(GAME_CHILD).addChildEventListener(new ChildEventListener() {
@@ -66,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
         Game overwatch = new Game("Overwatch", 40, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.PC);
         mFirebaseDatabaseReference.child(GAME_CHILD).child(overwatchID.toString()).setValue(overwatch);
 
-        mFirebaseDatabaseReference.child(GAME_CHILD).setValue(overwatchID.toString());
-        Game fireEmblem = new Game("Fire Emblem: Awakening", 50, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.THREEDS);
+        mFirebaseDatabaseReference.child(GAME_CHILD).setValue(fireEmblemID.toString());
+        Game fireEmblem = new Game("Fire Emblem: Awakening", 50, "https://upload.wikimedia.org/wikipedia/en/4/44/Fire_Emblem_Awakening_box_art.png", Platform.THREEDS);
         mFirebaseDatabaseReference.child(GAME_CHILD).child(overwatchID.toString()).setValue(overwatch);
 
-        mFirebaseDatabaseReference.child(GAME_CHILD).setValue(overwatchID.toString());
-        Game counterStrike = new Game("Counter Strike: Global Offensive", 10, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.PC);
+        mFirebaseDatabaseReference.child(GAME_CHILD).setValue(counterStrikeID.toString());
+        Game counterStrike = new Game("Counter Strike: Global Offensive", 10, "https://upload.wikimedia.org/wikipedia/en/c/ce/Counter-Strike_Global_Offensive.jpg", Platform.PC);
         mFirebaseDatabaseReference.child(GAME_CHILD).child(overwatchID.toString()).setValue(overwatch);
     }
 }
