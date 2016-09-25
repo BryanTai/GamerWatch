@@ -25,4 +25,16 @@ public class Game {
     public TreeMap<Vendor, Long> getDeals() {
         return _deals;
     }
+
+    public String getTitle(){
+        return this._title;
+    }
+
+    public Long getPrice(){
+        return this._price;
+    }
+
+    public String getPlatform(){
+        return this._platform.name();
+    }
 }

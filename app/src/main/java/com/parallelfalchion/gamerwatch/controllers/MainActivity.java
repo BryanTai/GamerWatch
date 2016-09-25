@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ListView featuredGames;
 
     private static final String GAME_CHILD = "game";
+    private static List<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
 
 
@@ -57,11 +59,15 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseDatabaseReference.child(GAME_CHILD).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
-                System.out.println(newGame.get("_title"));
-                System.out.println(newGame.get("_price"));
-                System.out.println(newGame.get("_platform"));
-                System.out.println(newGame.get("_cover"));
+                Map<String,Object> newGame = (Map<String,Object>) dataSnapshot.getValue();
+                featuredGamesList.add(new Game((String) newGame.get("_title"),
+                                                (long) newGame.get("_price"),
+                                                (String) newGame.get("_cover"),
+                                                Platform.valueOf((String) newGame.get("_platform"))));
+//                System.out.println(newGame.get("_title"));
+//                System.out.println(newGame.get("_price"));
+//                System.out.println(newGame.get("_platform"));
+//                System.out.println(newGame.get("_cover"));
 
             }
 
@@ -87,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
         Map<String, Game> gameList = new HashMap<>();
 
+        //---------------------------------------------TEST DATA --------------------------------------------------------------------------------
         Game overwatch = new Game("Overwatch (PC)", 40, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.PC);
         gameList.put("Overwatch (PC)",overwatch);
 
@@ -96,7 +103,15 @@ public class MainActivity extends AppCompatActivity {
         Game counterStrike = new Game("Counter Strike: Global Offensive (PC)", 10, "https://upload.wikimedia.org/wikipedia/en/c/ce/Counter-Strike_Global_Offensive.jpg", Platform.PC);
         gameList.put("Counter Strike: Global Offensive (PC)", counterStrike);
 
+        //Adding games to View
         mFirebaseDatabaseReference.child(GAME_CHILD).setValue(gameList);
+
+        ArrayAdapter<Game> arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                featuredGamesList);
+
+        featuredGames.setAdapter(arrayAdapter);
 
     }
 }
