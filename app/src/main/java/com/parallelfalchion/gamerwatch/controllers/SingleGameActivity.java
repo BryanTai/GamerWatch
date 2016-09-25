@@ -41,16 +41,12 @@ import static com.parallelfalchion.gamerwatch.helpers.FirebaseHelper.getCoverAsD
 
 public class SingleGameActivity extends AppCompatActivity {
 
-    //TODO need to pass in the selected Game somehow
     Game thisGame;
 
     public static final String GAME_INTENT_TAG = "gameToAddToWishlist";
-    private static final String GAME_CHILD = "game";
     private static String SINGLE_GAME = "";
-    private List<String> pricesList = new ArrayList<String>();
+    private List<String> pricesList = new ArrayList<>();
 
-
-    RadioGroup platformChoice;
     ListView vendors;
     ImageView cover;
     TextView titleText;
@@ -63,10 +59,6 @@ public class SingleGameActivity extends AppCompatActivity {
 
         thisGame = (Game) getIntent().getSerializableExtra(MainActivity.SELECTED_GAME_INTENT_TAG);
         SINGLE_GAME = thisGame.getTitle();
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null) {
-//            SINGLE_GAME = extras.getString("TITLE");
-//        }
 
         //TODO either use platform buttons in SingleGameView or remove them entirely.
         //platformChoice = (RadioGroup) findViewById(R.id.platformGroup);
