@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference;
     private CustomBaseAdapter customBaseAdapter;
     private static final String GAME_CHILD = "prod";
-    private static ArrayList<Game> searchedGamesList = new ArrayList<>();
+    private ArrayList<Game> searchedGamesList = new ArrayList<>();
     ListView searchedGames;
 
     @Override
@@ -60,16 +60,18 @@ public class SearchActivity extends AppCompatActivity {
         searchedGames = (ListView) findViewById(R.id.resultList);
         customBaseAdapter = new CustomBaseAdapter(this, searchedGamesList);
 
-        mFirebaseDatabaseReference.child(GAME_CHILD).orderByKey().equalTo(query).addListenerForSingleValueEvent(new ValueEventListener() {
+        mFirebaseDatabaseReference.child(GAME_CHILD).orderByChild("title").equalTo(query).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
-                Iterator iterator = newGame.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry pair = (Map.Entry)iterator.next();
-                    searchedGamesList.add(FirebaseHelper.hashMapToGame((HashMap<String, Object>) pair.getValue()));
-                    iterator.remove(); // avoids a ConcurrentModificationException
-                    customBaseAdapter.notifyDataSetChanged();
+                if(newGame != null) {
+                    Iterator iterator = newGame.entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry pair = (Map.Entry) iterator.next();
+                        searchedGamesList.add(FirebaseHelper.hashMapToGame((HashMap<String, Object>) pair.getValue()));
+                        iterator.remove(); // avoids a ConcurrentModificationException
+                        customBaseAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
