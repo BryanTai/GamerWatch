@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //TODO Extract this method into a helper from MainActivity, WishlistActivity, and SearchActivity
     public void startSingleGameActivity(View view){
         TextView textView = (TextView) view.findViewById(R.id.row_game_title);
         String selectedTitle = textView.getText().toString();

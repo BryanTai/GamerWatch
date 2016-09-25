@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
@@ -27,6 +29,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.parallelfalchion.gamerwatch.controllers.MainActivity.SELECTED_GAME_INTENT_TAG;
 
 /**
  * Created by Bryan on 9/24/2016.
@@ -82,10 +86,16 @@ public class WishlistActivity extends AppCompatActivity{
                 fileContent.append(new String(buffer, 0, n));
             }
 
-            jsonGames = new JSONArray(fileContent.toString());
+            String data = fileContent.toString();
+            if(data.isEmpty()){
+                jsonGames = new JSONArray();
+            }else{
+                jsonGames = new JSONArray(data);
+            }
         } catch (FileNotFoundException e) {
             //If there is no wishlist save file, create a new one.
             try {
+                jsonGames = new JSONArray();
                 openFileOutput(SAVE_FILE_NAME, Context.MODE_PRIVATE);
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
@@ -141,14 +151,18 @@ public class WishlistActivity extends AppCompatActivity{
     private void addNewGameToWishlist(Game toAdd) {
         FileOutputStream fos = null;
         try {
-            fos = this.openFileOutput(SAVE_FILE_NAME, MODE_PRIVATE);
-            final OutputStreamWriter osw = new OutputStreamWriter(fos);
+            fos = openFileOutput(SAVE_FILE_NAME, MODE_PRIVATE);
             JSONObject newGame = gameObjectToJsonObject(toAdd);
             jsonGames.put(newGame);
+            String toStore = jsonGames.toString();
+            fos.write(toStore.getBytes());
+            fos.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -163,5 +177,23 @@ public class WishlistActivity extends AppCompatActivity{
     private JSONObject gameObjectToJsonObject(Game gameToStore) throws JSONException {
         String jsonInString = gson.toJson(gameToStore);
         return new JSONObject(jsonInString);
+    }
+
+    //TODO Extract this method into a helper from MainActivity, WishlistActivity, and SearchActivity
+    public void startSingleGameActivity(View view){
+        TextView textView = (TextView) view.findViewById(R.id.row_game_title);
+        String selectedTitle = textView.getText().toString();
+
+        Game selectedGame = null;
+        for(Game g : savedGameList){
+            if(g.getTitle().equals(selectedTitle)){
+                selectedGame = g;
+                break;
+            }
+        }
+
+        Intent intent = new Intent(this, SingleGameActivity.class);
+        intent.putExtra(SELECTED_GAME_INTENT_TAG, selectedGame);
+        startActivity(intent);
     }
 }
