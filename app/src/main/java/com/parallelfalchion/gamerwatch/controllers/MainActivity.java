@@ -112,20 +112,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //---------------------------------------------TEST DATA --------------------------------------------------------------------------------
-//        Map<String, Game> gameList = new HashMap<>();
-//        Game overwatch = new Game("Overwatch (PC)", 40, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.PC);
-//        gameList.put("Overwatch (PC)",overwatch);
-//
-//        Game fireEmblem = new Game("Fire Emblem: Awakening (3DS)", 50, "https://upload.wikimedia.org/wikipedia/en/4/44/Fire_Emblem_Awakening_box_art.png", Platform.THREEDS);
-//        gameList.put("Fire Emblem: Awakening (3DS)", fireEmblem);
-//
-//        Game counterStrike = new Game("Counter Strike: Global Offensive (PC)", 10, "https://upload.wikimedia.org/wikipedia/en/c/ce/Counter-Strike_Global_Offensive.jpg", Platform.PC);
-//        gameList.put("Counter Strike: Global Offensive (PC)", counterStrike);
-
-        //Adding games to View
-        //mFirebaseDatabaseReference.child(GAME_CHILD).setValue(gameList);
-
         featuredGames.setAdapter(customBaseAdapter);
 
     }

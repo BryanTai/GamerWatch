@@ -3,7 +3,11 @@ package com.parallelfalchion.gamerwatch.helpers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +23,6 @@ import com.parallelfalchion.gamerwatch.models.Game;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by Luke on 2016-09-24.
@@ -71,6 +73,10 @@ public class CustomBaseAdapter extends BaseAdapter {
         holder.txtPlatform.setText(platformString.equals("THREEDS")? "3DS":platformString);
 
         ImageView imgCover = (ImageView) convertView.findViewById(R.id.row_game_image);
+
+        byte[] b = android.util.Base64.decode(gameList.get(position).getCover(), Base64.DEFAULT);
+        Drawable image = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(b, 0, b.length));
+        imgCover.setImageDrawable(image);
 
         notifyDataSetChanged();
         return convertView;
