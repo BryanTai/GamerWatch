@@ -53,8 +53,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/gameTitleLayout"
+        android:onClick="addGameToWishlist"
         android:id="@+id/addToWishlist" />
 
+        <!--
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,15 +88,15 @@
                 android:layout_weight="1" />
 
         </RadioGroup>
-
+-->
 
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/platformGroup">
+        android:layout_height="match_parent">
+        <!--android:layout_below="@+id/platformGroup" -->
 
         <ListView
             android:layout_width="match_parent"

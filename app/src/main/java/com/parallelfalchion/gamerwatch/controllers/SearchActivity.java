@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
 
     //TODO
     private void doMySearch(String query) {
-        Log.d("LOOP","ZOOP");
+        Log.d("SEARCH","Searching with query: " + query);
     }
 
     @Override

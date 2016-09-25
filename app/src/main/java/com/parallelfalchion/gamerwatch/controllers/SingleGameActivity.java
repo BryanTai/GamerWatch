@@ -3,6 +3,7 @@ package com.parallelfalchion.gamerwatch.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -57,7 +58,9 @@ public class SingleGameActivity extends AppCompatActivity {
             SINGLE_GAME = extras.getString("TITLE");
         }
 
-        platformChoice = (RadioGroup) findViewById(R.id.platformGroup);
+        //TODO either use platform buttons in SingleGameView or remove them entirely.
+        //platformChoice = (RadioGroup) findViewById(R.id.platformGroup);
+
         vendors  = (ListView) findViewById(R.id.vendorList);
         cover = (ImageView) findViewById(R.id.gameImage);
         text = (TextView) findViewById(R.id.gameTitle);
@@ -114,4 +117,8 @@ public class SingleGameActivity extends AppCompatActivity {
 
     //TODO add a listener to the RadioButtons to handle which platform to show
 
+    //Handler for "Add To Wishlist" button press.
+    public void addGameToWishlist(View view){
+        //TODO
+    }
 }
