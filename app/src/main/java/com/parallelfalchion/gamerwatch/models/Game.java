@@ -2,9 +2,10 @@ package com.parallelfalchion.gamerwatch.models;
 
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.TreeMap;
 
-public class Game {
+public class Game implements Serializable{
     String _title;
     long _price;
     String _cover;

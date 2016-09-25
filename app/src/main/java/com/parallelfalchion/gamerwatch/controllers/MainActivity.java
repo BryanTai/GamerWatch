@@ -35,6 +35,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.parallelfalchion.gamerwatch.helpers.FirebaseHelper;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.google.firebase.database.ValueEventListener;
 import com.parallelfalchion.gamerwatch.R;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView featuredGames;
 
-    private static final String GAME_CHILD = "game";
+    private static final String GAME_CHILD = "thisGame";
     private static ArrayList<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
     private CustomBaseAdapter customBaseAdapter;
@@ -98,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 Iterator iterator = newGame.entrySet().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry pair = (Map.Entry)iterator.next();
-                    featuredGamesList.add(hashMapToGame((HashMap<String, Object>) pair.getValue()));
+                    featuredGamesList.add(FirebaseHelper.hashMapToGame((HashMap<String, Object>) pair.getValue()));
                     iterator.remove(); // avoids a ConcurrentModificationException
                     customBaseAdapter.notifyDataSetChanged();
-                };
+                }
             }
 
             @Override
@@ -128,12 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private Game hashMapToGame(HashMap<String, Object> map){
-        return new Game((String) map.get("_title"),
-                        (long) map.get("_price"),
-                        (String) map.get("_cover"),
-                        Platform.valueOf((String) map.get("_platform")));
-    }
+
 
     public void startSingleGameActivity(View view){
         TextView textView = (TextView) view.findViewById(R.id.row_game_title);

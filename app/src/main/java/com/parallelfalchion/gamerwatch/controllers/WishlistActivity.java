@@ -1,5 +1,6 @@
 package com.parallelfalchion.gamerwatch.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,8 @@ public class WishlistActivity extends AppCompatActivity{
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
 
+        Intent intent = getIntent();
+        //TODO check if there was a new Game passed in the Intent to add to our Wishlist
 
         populateWishlist();
     }

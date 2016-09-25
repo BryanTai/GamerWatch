@@ -1,5 +1,6 @@
 package com.parallelfalchion.gamerwatch.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.R;
-import com.parallelfalchion.gamerwatch.models.Platform;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by Bryan on 9/24/2016.
@@ -35,7 +34,7 @@ import java.util.UUID;
 public class SingleGameActivity extends AppCompatActivity {
 
     //TODO need to pass in the selected Game somehow
-    Game game;
+    Game thisGame;
     private static final String GAME_CHILD = "game";
     private static final String AMAZON = "amazon";
     private static String SINGLE_GAME = "";
@@ -115,10 +114,9 @@ public class SingleGameActivity extends AppCompatActivity {
         return true;
     }
 
-    //TODO add a listener to the RadioButtons to handle which platform to show
-
     //Handler for "Add To Wishlist" button press.
     public void addGameToWishlist(View view){
-        //TODO
+        Intent wishlistIntent = new Intent(this, WishlistActivity.class);
+        wishlistIntent.putExtra("Game", thisGame); //TODO associate the Game object with thisGame
     }
 }
