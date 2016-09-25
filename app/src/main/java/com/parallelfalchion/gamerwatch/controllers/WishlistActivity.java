@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 import com.parallelfalchion.gamerwatch.models.Game;
@@ -18,13 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Bryan on 9/24/2016.
@@ -34,10 +36,14 @@ public class WishlistActivity extends AppCompatActivity{
 
     private final String SAVE_FILE_NAME = "gamerwatch_wishlist";
 
-    private JSONArray savedGames;
+    private JSONArray jsonGames;
+    private ArrayList<Game> savedGameList;
 
     private Gson gson;
 
+    private ListView wishlistView;
+
+    private CustomBaseAdapter customBaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,7 @@ public class WishlistActivity extends AppCompatActivity{
         setContentView(R.layout.wishlist);
 
         gson = new Gson();
+        savedGameList = new ArrayList<Game>();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
@@ -75,7 +82,7 @@ public class WishlistActivity extends AppCompatActivity{
                 fileContent.append(new String(buffer, 0, n));
             }
 
-            savedGames = new JSONArray(fileContent.toString());
+            jsonGames = new JSONArray(fileContent.toString());
         } catch (FileNotFoundException e) {
             //If there is no wishlist save file, create a new one.
             try {
@@ -100,24 +107,34 @@ public class WishlistActivity extends AppCompatActivity{
     }
 
     private void populateWishlist() {
-        //TODO
-        for(int i = 0; i < savedGames.length(); i++){
+
+        wishlistView = (ListView) findViewById(R.id.wishlistView);
+        customBaseAdapter = new CustomBaseAdapter(this, savedGameList);
+
+        //TODO this is a goddamn mess.... refactor when not on a deadline
+        for(int i = 0; i < jsonGames.length(); i++){
             JSONObject jsonRow = null;
             try {
-                jsonRow = savedGames.getJSONObject(i);
+                jsonRow = jsonGames.getJSONObject(i);
                 Game gameRow = gson.fromJson(jsonRow.toString(), Game.class);
-
-
+                savedGameList.add(gameRow);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
 
+        wishlistView.setAdapter(customBaseAdapter);
+
+        if(jsonGames.length() <= 0){
+            showEmptyWishlist();
+        }
+
     }
 
     private void showEmptyWishlist(){
-
+        //TODO print Empty wishlist message
+        Log.d("WISHLIST", "Nothing in wishlist...");
     }
 
     //TODO
@@ -127,7 +144,7 @@ public class WishlistActivity extends AppCompatActivity{
             fos = this.openFileOutput(SAVE_FILE_NAME, MODE_PRIVATE);
             final OutputStreamWriter osw = new OutputStreamWriter(fos);
             JSONObject newGame = gameObjectToJsonObject(toAdd);
-            savedGames.put(newGame);
+            jsonGames.put(newGame);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
