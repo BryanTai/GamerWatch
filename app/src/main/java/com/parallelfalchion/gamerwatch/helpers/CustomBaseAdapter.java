@@ -70,14 +70,7 @@ public class CustomBaseAdapter extends BaseAdapter {
         holder.txtPrice.setText(gameList.get(position).getPrice().toString());
         holder.txtPlatform.setText(platformString.equals("THREEDS")? "3DS":platformString);
 
-//        ImageView imgCover = (ImageView) convertView.findViewById(R.id.row_game_image);
-//        imgCover.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                notifyDataSetChanged();
-//                switchActivity(context);
-//            }
-//        });
+        ImageView imgCover = (ImageView) convertView.findViewById(R.id.row_game_image);
 
         notifyDataSetChanged();
         return convertView;
