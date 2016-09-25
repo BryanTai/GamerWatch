@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.models.Platform;
@@ -47,22 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.overflow_menu, menu);
-
-        //TODO: there's gotta be a cleaner way to do this...
-        MenuItem featured = menu.findItem(R.id.menu_featured);
-        Intent intentFeatured = new Intent(this, MainActivity.class);
-        featured.setIntent(intentFeatured);
-
-        MenuItem search = menu.findItem(R.id.menu_search);
-        Intent intentSearch = new Intent(this, SearchActivity.class);
-        search.setIntent(intentSearch);
-
-        MenuItem wishlist = menu.findItem(R.id.menu_wishlist);
-        Intent intentWishlist = new Intent(this, WishlistActivity.class);
-        wishlist.setIntent(intentWishlist);
-
+        MenuHelper.populateMenu(this, menu);
         return true;
     }
 
