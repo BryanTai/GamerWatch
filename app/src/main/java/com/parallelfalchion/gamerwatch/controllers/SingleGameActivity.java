@@ -3,6 +3,7 @@ package com.parallelfalchion.gamerwatch.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -116,6 +117,7 @@ public class SingleGameActivity extends AppCompatActivity {
 
     //Handler for "Add To Wishlist" button press.
     public void addGameToWishlist(View view){
+        Log.d("SINGLEGAME", "Starting Wishlist Activity!");
         Intent wishlistIntent = new Intent(this, WishlistActivity.class);
         wishlistIntent.putExtra("Game", thisGame); //TODO associate the Game object with thisGame
     }

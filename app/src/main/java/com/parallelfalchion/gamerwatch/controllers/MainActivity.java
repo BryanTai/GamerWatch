@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView featuredGames;
 
-    private static final String GAME_CHILD = "thisGame";
+    private static final String GAME_CHILD = "game";
     private static ArrayList<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
     private CustomBaseAdapter customBaseAdapter;
