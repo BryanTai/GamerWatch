@@ -29,8 +29,8 @@ public class FirebaseHelper {
         }
 
         return new Game((String) map.get("title"),
-                (Double) map.get("salesPrice"),
-                //(Map<String,Double>) map.get("salesPrice"),
+                (Double) map.get("regularPrice"),
+                (Map<String,Double>) map.get("prices"),
                 (String) map.get("cover"),
                 platform);
     }

@@ -19,7 +19,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static com.parallelfalchion.gamerwatch.helpers.FirebaseHelper.getCoverAsDrawable;
 
@@ -58,7 +60,11 @@ public class SingleGameActivity extends AppCompatActivity {
         titleText.setText(SINGLE_GAME);
         cover.setImageDrawable(getCoverAsDrawable(thisGame.getCover()));
 
-        pricesList.add("BestBuy   $" + thisGame.getPrice());
+        Iterator iterator = thisGame.getPrices().entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry pair = (Map.Entry)iterator.next();
+            pricesList.add(pair.getKey()+"   $" + pair.getValue());
+        }
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your

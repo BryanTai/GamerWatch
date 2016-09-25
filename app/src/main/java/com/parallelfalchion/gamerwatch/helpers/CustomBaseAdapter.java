@@ -23,6 +23,9 @@ import com.parallelfalchion.gamerwatch.models.Game;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import static com.parallelfalchion.gamerwatch.helpers.FirebaseHelper.getCoverAsDrawable;
 
@@ -69,15 +72,26 @@ public class CustomBaseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        Map<String, Double> prices = gameList.get(position).getPrices();
+        Iterator iterator = prices.entrySet().iterator();
+        Double cheapest = Double.MAX_VALUE;
+
+        while (iterator.hasNext()) {
+            Map.Entry pair = (Map.Entry)iterator.next();
+            cheapest = (Double) pair.getValue() < cheapest ? (Double) pair.getValue(): cheapest;
+        }
+
         String platformString = gameList.get(position).getPlatform().toString();
         holder.txtTitle.setText(gameList.get(position).getTitle());
-        holder.txtPrice.setText("$"+ gameList.get(position).getPrice().toString());
+        holder.txtPrice.setText("$"+ cheapest.toString());
         holder.txtPlatform.setText(platformString.equals("THREEDS")? "3DS":platformString);
 
         ImageView imgCover = (ImageView) convertView.findViewById(R.id.row_game_image);
 
-        Drawable image = getCoverAsDrawable(gameList.get(position).getCover());
-        imgCover.setImageDrawable(image);
+        if(gameList.get(position).getCover() != null) {
+            Drawable image = getCoverAsDrawable(gameList.get(position).getCover());
+            imgCover.setImageDrawable(image);
+        }
 
         notifyDataSetChanged();
         return convertView;

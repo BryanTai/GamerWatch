@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private DatabaseReference mFirebaseDatabaseReference;
     private CustomBaseAdapter customBaseAdapter;
-    private static final String GAME_CHILD = "game";
+    private static final String GAME_CHILD = "prod";
     private static ArrayList<Game> searchedGamesList = new ArrayList<>();
     ListView searchedGames;
 

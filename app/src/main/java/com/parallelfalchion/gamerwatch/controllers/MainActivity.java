@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ListView featuredGames;
 
     public static final String SELECTED_GAME_INTENT_TAG = "selectedGame";
-    private static final String GAME_CHILD = "game";
+    private static final String GAME_CHILD = "prod";
     private static ArrayList<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
     private CustomBaseAdapter customBaseAdapter;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         featuredGames = (ListView) findViewById(R.id.featuredList);
         customBaseAdapter = new CustomBaseAdapter(this, featuredGamesList);
 
-        mFirebaseDatabaseReference.child(GAME_CHILD).orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+        mFirebaseDatabaseReference.child(GAME_CHILD).orderByKey().limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
         featuredGames.setAdapter(customBaseAdapter);
 
     }
-
-
 
     public void startSingleGameActivity(View view){
         TextView textView = (TextView) view.findViewById(R.id.row_game_title);
