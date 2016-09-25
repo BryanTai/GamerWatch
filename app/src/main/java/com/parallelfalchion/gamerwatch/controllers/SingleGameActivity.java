@@ -50,7 +50,7 @@ public class SingleGameActivity extends AppCompatActivity {
     Game game;
     private static final String GAME_CHILD = "game";
     private static final String AMAZON = "amazon";
-    private static final String SINGLE_GAME = "Until Dawn (Playstation 4)";
+    private static String SINGLE_GAME = "";
     private static List<String> pricesList = new ArrayList<String>();
     private DatabaseReference mFirebaseDatabaseReference;
 
@@ -65,17 +65,24 @@ public class SingleGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_game);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            SINGLE_GAME = extras.getString("TITLE");
+        }
+
         platformChoice = (RadioGroup) findViewById(R.id.platformGroup);
         vendors  = (ListView) findViewById(R.id.vendorList);
         cover = (ImageView) findViewById(R.id.gameImage);
         text = (TextView) findViewById(R.id.gameTitle);
+
+        text.setText(SINGLE_GAME);
 
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseDatabaseReference.child(AMAZON).orderByKey().equalTo(SINGLE_GAME).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
-                pricesList.add((String) newGame.get("price"));
+               // pricesList.add((String) newGame.get("price"));
             }
 
             @Override
@@ -83,13 +90,6 @@ public class SingleGameActivity extends AppCompatActivity {
 
             }
         });
-
-        UUID overwatchID = UUID.randomUUID();
-
-        mFirebaseDatabaseReference.child(GAME_CHILD).setValue(overwatchID.toString());
-
-        Game overwatch = new Game("Overwatch (PC)", 40, "http://multimedia.bbycastatic.ca/multimedia/products/500x500/103/10372/10372019.jpg", Platform.PS4);
-        mFirebaseDatabaseReference.child(GAME_CHILD).child(overwatchID.toString()).setValue(overwatch);
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your

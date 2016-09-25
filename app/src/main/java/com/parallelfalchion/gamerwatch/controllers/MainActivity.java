@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -137,7 +139,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSingleGameActivity(View view){
+        TextView textView = (TextView) view.findViewById(R.id.row_game_title);
+
         Intent intent = new Intent(this, SingleGameActivity.class);
+        intent.putExtra("TITLE", textView.getText());
         startActivity(intent);
     }
 
