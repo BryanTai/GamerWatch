@@ -10,6 +10,7 @@ import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.models.Platform;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Bryan on 9/25/2016.
@@ -18,10 +19,20 @@ import java.util.HashMap;
 public class FirebaseHelper {
 
     public static Game hashMapToGame(HashMap<String, Object> map){
+        Platform platform;
+
+        if((map.get("platform")).equals("3DS")){
+            platform = Platform.THREEDS;
+        }
+        else{
+            platform = Platform.valueOf((String) map.get("platform"));
+        }
+
         return new Game((String) map.get("title"),
                 (Double) map.get("salesPrice"),
+                //(Map<String,Double>) map.get("salesPrice"),
                 (String) map.get("cover"),
-                Platform.valueOf((String) map.get("platform")));
+                platform);
     }
 
     public static Drawable getCoverAsDrawable(String byteString){

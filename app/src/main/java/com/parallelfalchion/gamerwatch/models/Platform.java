@@ -2,9 +2,14 @@ package com.parallelfalchion.gamerwatch.models;
 
 public enum Platform {
     PS4("PS4"),
-    XBOXONE("XBOXONE"),
+    XBoxOne("XBoxOne"),
     PC("PC"),
-    THREEDS("THREEDS");
+    THREEDS("THREEDS"),
+    XBox360("XBox360"),
+    Wii("Wii"),
+    WiiU("WiiU"),
+    DS("DS"),
+    PS3("PS3");
 
     private final String name;
 
