@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.parallelfalchion.gamerwatch.helpers.FirebaseHelper;
+import com.parallelfalchion.gamerwatch.helpers.ListViewHelper;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.google.firebase.database.ValueEventListener;
 import com.parallelfalchion.gamerwatch.R;
@@ -31,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     ListView featuredGames;
 
-    public static final String SELECTED_GAME_INTENT_TAG = "selectedGame";
-    private static final String GAME_CHILD = "prod";
+
+private static final String GAME_CHILD = "prod";
     private static ArrayList<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
     private CustomBaseAdapter customBaseAdapter;
@@ -99,22 +100,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void startSingleGameActivity(View view){
-        TextView textView = (TextView) view.findViewById(R.id.row_game_title);
-        String selectedTitle = textView.getText().toString();
-
-        //TODO Should we store featuredGamesList in a better data structure?
-        Game selectedGame = null;
-        for(Game g : featuredGamesList){
-            if(g.getTitle().equals(selectedTitle)){
-                selectedGame = g;
-                break;
-            }
-        }
-
-        Intent intent = new Intent(this, SingleGameActivity.class);
-        intent.putExtra(SELECTED_GAME_INTENT_TAG, selectedGame);
-        startActivity(intent);
+        ListViewHelper.startSingleGameActivity(view, this, featuredGamesList);
     }
 
 }

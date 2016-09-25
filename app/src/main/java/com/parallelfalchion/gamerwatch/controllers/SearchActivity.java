@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
 import com.parallelfalchion.gamerwatch.helpers.FirebaseHelper;
+import com.parallelfalchion.gamerwatch.helpers.ListViewHelper;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 import com.parallelfalchion.gamerwatch.models.Game;
@@ -26,8 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import static com.parallelfalchion.gamerwatch.controllers.MainActivity.SELECTED_GAME_INTENT_TAG;
 
 /**
  * Created by Bryan on 9/24/2016.
@@ -90,21 +89,8 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
+    //TODO Extract this method into a helper from MainActivity, WishlistActivity, and SearchActivity
     public void startSingleGameActivity(View view){
-        TextView textView = (TextView) view.findViewById(R.id.row_game_title);
-        String selectedTitle = textView.getText().toString();
-
-        //TODO Should we store featuredGamesList in a better data structure?
-        Game selectedGame = null;
-        for(Game g : searchedGamesList){
-            if(g.getTitle().equals(selectedTitle)){
-                selectedGame = g;
-                break;
-            }
-        }
-
-        Intent intent = new Intent(this, SingleGameActivity.class);
-        intent.putExtra(SELECTED_GAME_INTENT_TAG, selectedGame);
-        startActivity(intent);
+        ListViewHelper.startSingleGameActivity(view,this,searchedGamesList);
     }
 }
