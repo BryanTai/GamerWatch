@@ -3,7 +3,9 @@ package com.parallelfalchion.gamerwatch.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
+import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 
 /**
@@ -22,6 +24,12 @@ public class WishlistActivity extends AppCompatActivity{
 
 
         populateWishlist();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuHelper.populateMenu(this, menu);
+        return true;
     }
 
     private void populateWishlist() {

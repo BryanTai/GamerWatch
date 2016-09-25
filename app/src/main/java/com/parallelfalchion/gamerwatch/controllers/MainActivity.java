@@ -1,11 +1,13 @@
 package com.parallelfalchion.gamerwatch.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.models.Platform;
@@ -48,8 +51,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.overflow_menu, menu);
+        MenuHelper.populateMenu(this, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent itemIntent = item.getIntent();
+
+        //TODO test if this works later....
+/*
+        if(this.getClass().equals(itemIntent.getComponent().getClassName())){
+        //don't bother running the same activity
+            return true;
+        }
+*/
+
+        startActivity(itemIntent);
         return true;
     }
 

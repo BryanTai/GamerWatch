@@ -3,7 +3,9 @@ package com.parallelfalchion.gamerwatch.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
+import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 
 /**
@@ -18,6 +20,12 @@ public class SearchActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuHelper.populateMenu(this, menu);
+        return true;
     }
 
 }
