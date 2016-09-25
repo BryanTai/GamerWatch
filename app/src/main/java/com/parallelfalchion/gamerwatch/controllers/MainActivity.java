@@ -1,11 +1,12 @@
 package com.parallelfalchion.gamerwatch.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -45,8 +46,39 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.overflow_menu, menu);
+
+        //TODO: there's gotta be a cleaner way to do this...
+        MenuItem featured = menu.findItem(R.id.menu_featured);
+        Intent intentFeatured = new Intent(this, MainActivity.class);
+        featured.setIntent(intentFeatured);
+
+        MenuItem search = menu.findItem(R.id.menu_search);
+        Intent intentSearch = new Intent(this, SearchActivity.class);
+        search.setIntent(intentSearch);
+
+        MenuItem wishlist = menu.findItem(R.id.menu_wishlist);
+        Intent intentWishlist = new Intent(this, WishlistActivity.class);
+        wishlist.setIntent(intentWishlist);
+
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent itemIntent = item.getIntent();
+
+        //TODO test if this works later....
+/*
+        if(this.getClass().equals(itemIntent.getComponent().getClassName())){
+        //don't bother running the same activity 
+            return true;
+        }
+*/
+
+        startActivity(itemIntent);
+        return true;
+    }
+
 
     private void populateFeaturedGames() {
         featuredGames = (ListView) findViewById(R.id.featuredList);
