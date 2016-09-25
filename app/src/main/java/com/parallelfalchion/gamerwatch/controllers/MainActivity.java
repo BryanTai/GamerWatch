@@ -37,7 +37,6 @@ import java.util.Map;
 
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.google.firebase.database.ValueEventListener;
-import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
 import com.parallelfalchion.gamerwatch.models.Game;
