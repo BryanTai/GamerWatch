@@ -12,9 +12,9 @@ import java.util.HashMap;
 public class FirebaseHelper {
 
     public static Game hashMapToGame(HashMap<String, Object> map){
-        return new Game((String) map.get("_title"),
-                (long) map.get("_price"),
-                (String) map.get("_cover"),
-                Platform.valueOf((String) map.get("_platform")));
+        return new Game((String) map.get("title"),
+                (Double) map.get("price"),
+                (String) map.get("cover"),
+                Platform.valueOf((String) map.get("platform")));
     }
 }
