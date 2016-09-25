@@ -48,7 +48,7 @@ public class SingleGameActivity extends AppCompatActivity {
     RadioGroup platformChoice;
     ListView vendors;
     ImageView cover;
-    TextView text;
+    TextView titleText;
 
 
     @Override
@@ -56,19 +56,21 @@ public class SingleGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_game);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            SINGLE_GAME = extras.getString("TITLE");
-        }
+        thisGame = (Game) getIntent().getSerializableExtra(MainActivity.SELECTED_GAME_INTENT_TAG);
+        SINGLE_GAME = thisGame.getTitle();
+//        Bundle extras = getIntent().getExtras();
+//        if(extras != null) {
+//            SINGLE_GAME = extras.getString("TITLE");
+//        }
 
         //TODO either use platform buttons in SingleGameView or remove them entirely.
         //platformChoice = (RadioGroup) findViewById(R.id.platformGroup);
 
         vendors  = (ListView) findViewById(R.id.vendorList);
         cover = (ImageView) findViewById(R.id.gameImage);
-        text = (TextView) findViewById(R.id.gameTitle);
+        titleText = (TextView) findViewById(R.id.gameTitle);
 
-        text.setText(SINGLE_GAME);
+        titleText.setText(SINGLE_GAME);
 
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseDatabaseReference.child(AMAZON).orderByKey().equalTo(SINGLE_GAME).addListenerForSingleValueEvent(new ValueEventListener() {
