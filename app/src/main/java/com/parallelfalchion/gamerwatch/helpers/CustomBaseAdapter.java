@@ -41,20 +41,21 @@ public class CustomBaseAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.landing_page, null);
+            convertView = mInflater.inflate(R.layout.custom_row_view, null);
             holder = new ViewHolder();
-            holder.txtTitle = (TextView) convertView.findViewById(R.id.title);
-            holder.txtPrice = (TextView) convertView.findViewById(R.id.price);
-            holder.txtPlatform = (TextView) convertView.findViewById(R.id.platform);
+            holder.txtTitle = (TextView) convertView.findViewById(R.id.row_game_title);
+            holder.txtPrice = (TextView) convertView.findViewById(R.id.row_game_price);
+            holder.txtPlatform = (TextView) convertView.findViewById(R.id.row_game_platform);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        String platformString = gameList.get(position).getPlatform().toString();
         holder.txtTitle.setText(gameList.get(position).getTitle());
         holder.txtPrice.setText(gameList.get(position).getPrice().toString());
-        holder.txtPlatform.setText(gameList.get(position).getPlatform());
+        holder.txtPlatform.setText(platformString.equals("THREEDS")? "3DS":platformString);
 
         return convertView;
     }

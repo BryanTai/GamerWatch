@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
+import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
 import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.models.Platform;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ListView featuredGames;
 
     private static final String GAME_CHILD = "game";
-    private static List<Game> featuredGamesList = new ArrayList<>();
+    private static ArrayList<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
 
 
@@ -124,12 +125,7 @@ public class MainActivity extends AppCompatActivity {
         //Adding games to View
         mFirebaseDatabaseReference.child(GAME_CHILD).setValue(gameList);
 
-        ArrayAdapter<Game> arrayAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                featuredGamesList);
-
-        featuredGames.setAdapter(arrayAdapter);
+        featuredGames.setAdapter(new CustomBaseAdapter(this, featuredGamesList));
 
     }
 }
