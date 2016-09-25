@@ -88,7 +88,7 @@ public class SingleGameActivity extends AppCompatActivity {
 
         mFirebaseDatabaseReference.child(GAME_CHILD).setValue(overwatchID.toString());
 
-        Game overwatch = new Game("Until Dawn (Playstation 4)", 40, "http://multimedia.bbycastatic.ca/multimedia/products/500x500/103/10372/10372019.jpg", Platform.PS4);
+        Game overwatch = new Game("Overwatch (PC)", 40, "http://multimedia.bbycastatic.ca/multimedia/products/500x500/103/10372/10372019.jpg", Platform.PS4);
         mFirebaseDatabaseReference.child(GAME_CHILD).child(overwatchID.toString()).setValue(overwatch);
 
         // This is the array adapter, it takes the context of the activity as a
@@ -106,7 +106,7 @@ public class SingleGameActivity extends AppCompatActivity {
     //converts cover art to a byte array TODO: get this to work
     private byte[] getBytesFromFile(String path){
         try{
-            ClassLoader classLoader = getClass().getClassLoader();
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             File file = new File(classLoader.getResource(path).getFile());
             byte[] b = new byte[(int) file.length()];
             FileInputStream fileInputStream = new FileInputStream(file);

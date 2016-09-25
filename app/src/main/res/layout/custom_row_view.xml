@@ -8,7 +8,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="startSingleGameActivity">
         <TextView android:id="@+id/row_game_title"
             android:textSize="14sp"
             android:textStyle="bold"
