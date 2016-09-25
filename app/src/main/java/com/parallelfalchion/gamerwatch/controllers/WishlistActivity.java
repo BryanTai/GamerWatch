@@ -8,6 +8,7 @@ import android.view.Menu;
 
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
+import com.parallelfalchion.gamerwatch.models.Game;
 
 /**
  * Created by Bryan on 9/24/2016.
@@ -25,6 +26,10 @@ public class WishlistActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         //TODO check if there was a new Game passed in the Intent to add to our Wishlist
+        Game toAdd = (Game) intent.getSerializableExtra(SingleGameActivity.GAME_INTENT_TAG);
+        if (toAdd != null){
+
+        }
 
         populateWishlist();
     }

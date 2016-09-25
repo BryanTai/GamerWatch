@@ -36,11 +36,14 @@ public class SingleGameActivity extends AppCompatActivity {
 
     //TODO need to pass in the selected Game somehow
     Game thisGame;
+
+    public static final String GAME_INTENT_TAG = "gameToAddToWishlist";
     private static final String GAME_CHILD = "game";
     private static final String AMAZON = "amazon";
     private static String SINGLE_GAME = "";
     private static List<String> pricesList = new ArrayList<String>();
     private DatabaseReference mFirebaseDatabaseReference;
+
 
     RadioGroup platformChoice;
     ListView vendors;
@@ -119,6 +122,8 @@ public class SingleGameActivity extends AppCompatActivity {
     public void addGameToWishlist(View view){
         Log.d("SINGLEGAME", "Starting Wishlist Activity!");
         Intent wishlistIntent = new Intent(this, WishlistActivity.class);
-        wishlistIntent.putExtra("Game", thisGame); //TODO associate the Game object with thisGame
+        wishlistIntent.putExtra(GAME_INTENT_TAG, thisGame);
+
+        startActivity(wishlistIntent);
     }
 }
