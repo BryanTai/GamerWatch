@@ -69,7 +69,7 @@ public class SingleGameActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.gameTitle);
 
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseDatabaseReference.child(AMAZON).equalTo(SINGLE_GAME).addListenerForSingleValueEvent(new ValueEventListener() {
+        mFirebaseDatabaseReference.child(AMAZON).orderByKey().equalTo(SINGLE_GAME).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
