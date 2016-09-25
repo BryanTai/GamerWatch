@@ -2,11 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/menu_search"
+    <item android:id="@+id/menu_search"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="@string/search_games"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:title="@string/search"/>
+
 
     <!-- Settings, should always be in the overflow -->
     <item android:id="@+id/menu_featured"
