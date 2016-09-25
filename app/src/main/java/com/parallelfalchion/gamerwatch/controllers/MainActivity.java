@@ -3,10 +3,12 @@ package com.parallelfalchion.gamerwatch.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -23,6 +25,7 @@ import java.util.UUID;
 
 import com.parallelfalchion.gamerwatch.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
+import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
 import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.models.Platform;
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ListView featuredGames;
 
     private static final String GAME_CHILD = "game";
+    private static ArrayList<Game> featuredGamesList = new ArrayList<>();
     private DatabaseReference mFirebaseDatabaseReference;
 
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO test if this works later....
 /*
         if(this.getClass().equals(itemIntent.getComponent().getClassName())){
-        //don't bother running the same activity 
+        //don't bother running the same activity
             return true;
         }
 */
@@ -68,18 +72,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void populateFeaturedGames() {
         featuredGames = (ListView) findViewById(R.id.featuredList);
 
         mFirebaseDatabaseReference.child(GAME_CHILD).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
-                System.out.println(newGame.get("_title"));
-                System.out.println(newGame.get("_price"));
-                System.out.println(newGame.get("_platform"));
-                System.out.println(newGame.get("_cover"));
+                Map<String,Object> newGame = (Map<String,Object>) dataSnapshot.getValue();
+                featuredGamesList.add(new Game((String) newGame.get("_title"),
+                                                (long) newGame.get("_price"),
+                                                (String) newGame.get("_cover"),
+                                                Platform.valueOf((String) newGame.get("_platform"))));
+//                System.out.println(newGame.get("_title"));
+//                System.out.println(newGame.get("_price"));
+//                System.out.println(newGame.get("_platform"));
+//                System.out.println(newGame.get("_cover"));
 
             }
 
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
         Map<String, Game> gameList = new HashMap<>();
 
+        //---------------------------------------------TEST DATA --------------------------------------------------------------------------------
         Game overwatch = new Game("Overwatch (PC)", 40, "https://upload.wikimedia.org/wikipedia/en/8/8f/Overwatch_cover_art_%28PC%29.jpg", Platform.PC);
         gameList.put("Overwatch (PC)",overwatch);
 
@@ -114,7 +122,10 @@ public class MainActivity extends AppCompatActivity {
         Game counterStrike = new Game("Counter Strike: Global Offensive (PC)", 10, "https://upload.wikimedia.org/wikipedia/en/c/ce/Counter-Strike_Global_Offensive.jpg", Platform.PC);
         gameList.put("Counter Strike: Global Offensive (PC)", counterStrike);
 
+        //Adding games to View
         mFirebaseDatabaseReference.child(GAME_CHILD).setValue(gameList);
+
+        featuredGames.setAdapter(new CustomBaseAdapter(this, featuredGamesList));
 
     }
 }
