@@ -1,8 +1,13 @@
 package com.parallelfalchion.gamerwatch.controllers;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -28,24 +33,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.parallelfalchion.gamerwatch.helpers.FirebaseHelper.getCoverAsDrawable;
+
 /**
  * Created by Bryan on 9/24/2016.
  */
 
 public class SingleGameActivity extends AppCompatActivity {
 
-    //TODO need to pass in the selected Game somehow
     Game thisGame;
 
     public static final String GAME_INTENT_TAG = "gameToAddToWishlist";
-    private static final String GAME_CHILD = "game";
-    private static final String AMAZON = "amazon";
     private static String SINGLE_GAME = "";
-    private static List<String> pricesList = new ArrayList<String>();
-    private DatabaseReference mFirebaseDatabaseReference;
+    private List<String> pricesList = new ArrayList<>();
 
-
-    RadioGroup platformChoice;
     ListView vendors;
     ImageView cover;
     TextView titleText;
@@ -58,10 +59,6 @@ public class SingleGameActivity extends AppCompatActivity {
 
         thisGame = (Game) getIntent().getSerializableExtra(MainActivity.SELECTED_GAME_INTENT_TAG);
         SINGLE_GAME = thisGame.getTitle();
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null) {
-//            SINGLE_GAME = extras.getString("TITLE");
-//        }
 
         //TODO either use platform buttons in SingleGameView or remove them entirely.
         //platformChoice = (RadioGroup) findViewById(R.id.platformGroup);
@@ -71,20 +68,9 @@ public class SingleGameActivity extends AppCompatActivity {
         titleText = (TextView) findViewById(R.id.gameTitle);
 
         titleText.setText(SINGLE_GAME);
+        cover.setImageDrawable(getCoverAsDrawable(thisGame.getCover()));
 
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseDatabaseReference.child(AMAZON).orderByKey().equalTo(SINGLE_GAME).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> newGame = (Map<String, Object>) dataSnapshot.getValue();
-               // pricesList.add((String) newGame.get("price"));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        pricesList.add("BestBuy   $" + thisGame.getPrice());
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -92,7 +78,7 @@ public class SingleGameActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                pricesList );
+                pricesList);
 
         vendors.setAdapter(arrayAdapter);
     }

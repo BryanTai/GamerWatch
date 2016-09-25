@@ -24,6 +24,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static com.parallelfalchion.gamerwatch.helpers.FirebaseHelper.getCoverAsDrawable;
+
 /**
  * Created by Luke on 2016-09-24.
  */
@@ -69,13 +71,12 @@ public class CustomBaseAdapter extends BaseAdapter {
 
         String platformString = gameList.get(position).getPlatform().toString();
         holder.txtTitle.setText(gameList.get(position).getTitle());
-        holder.txtPrice.setText(gameList.get(position).getPrice().toString());
+        holder.txtPrice.setText("$"+ gameList.get(position).getPrice().toString());
         holder.txtPlatform.setText(platformString.equals("THREEDS")? "3DS":platformString);
 
         ImageView imgCover = (ImageView) convertView.findViewById(R.id.row_game_image);
 
-        byte[] b = android.util.Base64.decode(gameList.get(position).getCover(), Base64.DEFAULT);
-        Drawable image = new BitmapDrawable(Resources.getSystem(), BitmapFactory.decodeByteArray(b, 0, b.length));
+        Drawable image = getCoverAsDrawable(gameList.get(position).getCover());
         imgCover.setImageDrawable(image);
 
         notifyDataSetChanged();
