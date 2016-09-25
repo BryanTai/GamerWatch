@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.parallelfalchion.gamerwatch.helpers.CustomBaseAdapter;
+import com.parallelfalchion.gamerwatch.helpers.ListViewHelper;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 import com.parallelfalchion.gamerwatch.models.Game;
@@ -26,11 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.List;
-
-import static com.parallelfalchion.gamerwatch.controllers.MainActivity.SELECTED_GAME_INTENT_TAG;
 
 /**
  * Created by Bryan on 9/24/2016.
@@ -179,21 +176,7 @@ public class WishlistActivity extends AppCompatActivity{
         return new JSONObject(jsonInString);
     }
 
-    //TODO Extract this method into a helper from MainActivity, WishlistActivity, and SearchActivity
     public void startSingleGameActivity(View view){
-        TextView textView = (TextView) view.findViewById(R.id.row_game_title);
-        String selectedTitle = textView.getText().toString();
-
-        Game selectedGame = null;
-        for(Game g : savedGameList){
-            if(g.getTitle().equals(selectedTitle)){
-                selectedGame = g;
-                break;
-            }
-        }
-
-        Intent intent = new Intent(this, SingleGameActivity.class);
-        intent.putExtra(SELECTED_GAME_INTENT_TAG, selectedGame);
-        startActivity(intent);
+        ListViewHelper.startSingleGameActivity(view,this,savedGameList);
     }
 }

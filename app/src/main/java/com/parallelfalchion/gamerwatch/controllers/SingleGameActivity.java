@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parallelfalchion.gamerwatch.helpers.ListViewHelper;
 import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.models.Game;
 import com.parallelfalchion.gamerwatch.R;
@@ -45,7 +46,7 @@ public class SingleGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_game);
 
-        thisGame = (Game) getIntent().getSerializableExtra(MainActivity.SELECTED_GAME_INTENT_TAG);
+        thisGame = (Game) getIntent().getSerializableExtra(ListViewHelper.SELECTED_GAME_INTENT_TAG);
         SINGLE_GAME = thisGame.getTitle();
 
         //TODO either use platform buttons in SingleGameView or remove them entirely.
