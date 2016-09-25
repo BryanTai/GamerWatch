@@ -29,7 +29,7 @@
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:id="@+id/wishlist"/>
+            android:id="@+id/wishlistView"/>
 
     </RelativeLayout>
 
