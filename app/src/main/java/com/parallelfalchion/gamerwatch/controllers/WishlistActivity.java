@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
-import com.parallelfalchion.gamerwatch.MenuHelper;
+import com.parallelfalchion.gamerwatch.helpers.MenuHelper;
 import com.parallelfalchion.gamerwatch.R;
 
 /**
